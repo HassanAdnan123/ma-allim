@@ -1,0 +1,14 @@
+@import "../dashboard.page.scss";
+
+ion-split-pane{
+    background-color: white;
+}
+ion-menu {
+    --ion-background-color: #38686A;
+}
+.centerSection {
+    background-color: $mBackground;
+    height: inherit;
+    padding: 20px;
+    margin: 10px;
+}

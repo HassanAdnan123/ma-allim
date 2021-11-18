@@ -1,0 +1,28 @@
+@import "../app.component.scss";
+
+
+.dashboardLinks{
+    color: $mPrimary;
+}
+
+.selected{
+    color: #CDC6AE !important;
+    font-weight: bold;
+}
+
+.menuitem {
+    color: white;
+    font-weight: bold;
+
+}
+
+ion-split-pane{
+    background-color: white;
+}
+ion-menu {
+    --ion-background-color: #38686A;
+    width: 25rem ;
+}
+.logo{
+    width: 25rem;
+}

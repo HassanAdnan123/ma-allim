@@ -8,14 +8,40 @@ ion-menu {
 }
 .centerSection {
     background-color: $mBackground;
-    height: inherit;
+    height: 97vh; /* For 100% screen height */
+    width:  90vw; /* For 100% screen width */
     padding: 20px;
     margin: 10px;
+    
 }
+.datagrid {
+    height: 60vh;
+    overflow:auto;
+}
+
+
 .header {
+    background-color: #38686A;
+    text-indent: 15px;
+    color: white;
     font-weight: bold;
     font-size: 30px;
+    font-family: 'Exo';
 }
+
+.rowsdata{
+    background-color: white;
+    font-size: 20px;
+    font-family: 'Exo';
+    padding: 5px;
+    margin: 5px;
+}
+
 .attendanceGrid{
     border: 1px solid grey;
+}
+
+.disableScroll{
+    overflow-y:hidden;
+    overflow-x:hidden;
 }

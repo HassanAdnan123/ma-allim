@@ -31,9 +31,23 @@
         <h1 class="">Attendance Summary</h1>
         <ion-card>      
           <ion-card-content>
-            Summary of all attendances shown here
+            <ion-button (click)="callService()">  Click to show dynamic results </ion-button>
           </ion-card-content>
         </ion-card>
+        <ion-grid>
+        <ion-row class="header attendanceGrid">
+          <ion-col> {{header.name}} </ion-col>
+          <ion-col> {{header.period}} </ion-col>
+          <ion-col> {{header.logindate}} </ion-col>
+          <ion-col> {{header.logintime}} </ion-col>
+        </ion-row>
+        <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of data">
+          <ion-col> {{datum.name}} </ion-col>
+          <ion-col> {{datum.period}} </ion-col>
+          <ion-col> {{datum.logindate}} </ion-col>
+          <ion-col> {{datum.logintime}} </ion-col>
+        </ion-row>
+      </ion-grid>
       </div>
      </ion-buttons>
          

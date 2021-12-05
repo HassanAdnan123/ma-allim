@@ -29,29 +29,47 @@
       <ion-menu-button></ion-menu-button>
       <div class="centerSection">
         <h1 class="">Attendance Summary</h1>
+
         <ion-card>
           <ion-card-content>
-            <ion-button (click)="callService()"> Click to show dynamic results </ion-button>
+            
             <ion-item>
-              <ion-label position="floating">No. of records</ion-label>
-              <ion-input [(ngModel)]="recordsQty"></ion-input>
+              <ion-label position="floating">User ID</ion-label>
+              <ion-input [(ngModel)]="userid"></ion-input>
             </ion-item>
+            <ion-item>
+              <ion-label position="floating">Month</ion-label>
+              <ion-input [(ngModel)]="month"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Year</ion-label>
+              <ion-input [(ngModel)]="year"></ion-input>
+            </ion-item>
+            <ion-button class="fetchData" fill="solid" color="primary" (click)="callService()"> Get Attendance Data </ion-button>
+            
           </ion-card-content>
+          <ion-progress-bar type="indeterminate" *ngIf="startloader"></ion-progress-bar>
         </ion-card>
         
           <ion-grid>
             <ion-row class="header attendanceGrid">
               <ion-col> {{header.name}} </ion-col>
-              <ion-col> {{header.period}} </ion-col>
               <ion-col> {{header.logindate}} </ion-col>
               <ion-col> {{header.logintime}} </ion-col>
+              <ion-col> {{header.period}} </ion-col>
+              <ion-col> {{header.status}} </ion-col>
+              <ion-col> {{header.minuteslate}} </ion-col>
             </ion-row>
             <div class="datagrid">
             <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of data">
               <ion-col> {{datum.name}} </ion-col>
-              <ion-col> {{datum.period}} </ion-col>
               <ion-col> {{datum.logindate}} </ion-col>
               <ion-col> {{datum.logintime}} </ion-col>
+              <ion-col> {{datum.period}} </ion-col>
+              <ion-col *ngIf="datum.status === 'Late'" class="late"> {{datum.status}} </ion-col>
+              <ion-col *ngIf="datum.status === 'On time'" class="onTime"> {{datum.status}} </ion-col>
+              <ion-col> {{datum.minuteslate}} </ion-col>
+
             </ion-row>
           </div>
           </ion-grid>

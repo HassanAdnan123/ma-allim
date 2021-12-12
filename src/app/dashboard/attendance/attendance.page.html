@@ -30,37 +30,82 @@
       <div class="centerSection">
         <h1 class="">Attendance Summary</h1>
 
-        <ion-card>
-          <ion-card-content>
-            
-            <ion-item>
-              <ion-label position="floating">User ID</ion-label>
-              <ion-input [(ngModel)]="userid"></ion-input>
+        <ion-card >
+          <ion-card-content >
+
+            <ion-item class="dropdown">
+              <ion-label class="options">Select a user</ion-label>
+              <ion-select  (ionChange)="userid = $event.target.value">
+                <ng-container class="options" *ngFor="let user of users">
+                  <ion-select-option  [value]="user.userid">{{user.userid}} - {{user.name}} </ion-select-option>
+                </ng-container>
+              </ion-select>
             </ion-item>
-            <ion-item>
-              <ion-label position="floating">Month</ion-label>
+
+
+            <ion-item class="dropdown">
+              <ion-label class="options">Select a month</ion-label>
+              <ion-select interface="popover" (ionChange)="month = $event.target.value">
+                
+                  <ion-select-option  [value]="1">January</ion-select-option>
+                  <ion-select-option  [value]="2">February</ion-select-option>
+                  <ion-select-option  [value]="3">March</ion-select-option>
+                  <ion-select-option  [value]="4">April</ion-select-option>
+                  <ion-select-option  [value]="5">May</ion-select-option>
+                  <ion-select-option  [value]="6">June</ion-select-option>
+                  <ion-select-option  [value]="7">July</ion-select-option>
+                  <ion-select-option  [value]="8">August</ion-select-option>
+                  <ion-select-option  [value]="9">September</ion-select-option>
+                  <ion-select-option  [value]="10">October</ion-select-option>
+                  <ion-select-option  [value]="11">November</ion-select-option>
+                  <ion-select-option  [value]="12">December</ion-select-option>
+                
+              </ion-select>
+            </ion-item>
+            <!-- <ion-item>
+              <ion-label class="options" position="floating">Month</ion-label>
               <ion-input [(ngModel)]="month"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Year</ion-label>
+            </ion-item> -->
+            <!-- <ion-item>
+              <ion-label class="options" position="floating">Year</ion-label>
               <ion-input [(ngModel)]="year"></ion-input>
+            </ion-item> -->
+
+            <ion-item class="dropdown">
+              <ion-label class="options">Select a year</ion-label>
+              <ion-select interface="popover"  (ionChange)="year = $event.target.value" value="2021">
+                
+                  <ion-select-option  [value]="2020">2020</ion-select-option>
+                  <ion-select-option  [value]="2021">2021</ion-select-option>
+                  <ion-select-option  [value]="2022">2022</ion-select-option>
+                  <ion-select-option  [value]="2023">2023</ion-select-option>
+                
+              </ion-select>
             </ion-item>
-            <ion-button class="fetchData" fill="solid" color="primary" (click)="callService()"> Get Attendance Data </ion-button>
-            
+
+            <ion-button class="fetchData" fill="solid" color="primary" (click)="callService()"> Get Attendance Data
+            </ion-button>
+
           </ion-card-content>
           <ion-progress-bar type="indeterminate" *ngIf="startloader"></ion-progress-bar>
         </ion-card>
+        <ion-grid *ngIf="AbsenceSummary">
+        <ion-row class="AbsenceSummary">
+          <ion-col> Days Present: {{AbsenceSummary.dayspresent}} </ion-col>
+          <ion-col> Days Absent: {{AbsenceSummary.daysabsent}} </ion-col>
+        </ion-row>
+        </ion-grid>
         
           <ion-grid>
-            <ion-row class="header attendanceGrid">
-              <ion-col> {{header.name}} </ion-col>
-              <ion-col> {{header.logindate}} </ion-col>
-              <ion-col> {{header.logintime}} </ion-col>
-              <ion-col> {{header.period}} </ion-col>
-              <ion-col> {{header.status}} </ion-col>
-              <ion-col> {{header.minuteslate}} </ion-col>
-            </ion-row>
-            <div class="datagrid">
+          <ion-row class="header attendanceGrid">
+            <ion-col> {{header.name}} </ion-col>
+            <ion-col> {{header.logindate}} </ion-col>
+            <ion-col> {{header.logintime}} </ion-col>
+            <ion-col> {{header.period}} </ion-col>
+            <ion-col> {{header.status}} </ion-col>
+            <ion-col> {{header.minuteslate}} </ion-col>
+          </ion-row>
+          <div class="datagrid">
             <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of data">
               <ion-col> {{datum.name}} </ion-col>
               <ion-col> {{datum.logindate}} </ion-col>
@@ -72,8 +117,8 @@
 
             </ion-row>
           </div>
-          </ion-grid>
-        
+        </ion-grid>
+
       </div>
     </ion-buttons>
 

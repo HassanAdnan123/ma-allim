@@ -11,6 +11,7 @@ export class DataService {
   constructor(public httpClient: HttpClient) { }
 
   responseFromAPI: any
+  usersCatalog: any
   setNoResponse = false
 
   async sendPostRequest(requestJson) {
@@ -39,6 +40,26 @@ export class DataService {
       console.log("Error response is set to: "+this.setNoResponse)
       return {error: this.setNoResponse} 
     }
+  }
+
+  async fetchAllUsers() {
+    this.setNoResponse = false
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    }
+
+
+    await this.httpClient.post("https://localhost:44385/api/user", httpOptions).toPromise().then(data => {
+      this.usersCatalog = data
+    }, error => {
+      console.log("Unable to fetch users")
+    })
+
+      return this.usersCatalog
+    
   }
 
 }

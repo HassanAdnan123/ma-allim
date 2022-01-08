@@ -56,6 +56,7 @@ export class DataService {
       this.usersCatalog = data
     }, error => {
       console.log("Unable to fetch users")
+      this.usersCatalog = null
     })
 
       return this.usersCatalog

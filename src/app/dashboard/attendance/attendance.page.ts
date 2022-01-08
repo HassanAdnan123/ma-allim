@@ -17,13 +17,16 @@ export class AttendancePage implements OnInit {
   users = []
 
   AbsenceSummary: object = null
-  // monthsWith31Days = [{January: 0},
-  // ]
+  noOfDaysInMonths = {
+    with31days: [4,6,9,11],
+    with30days: [1,3,5,7,8,10,12],
+    with28days: 2
+  }
 
 
   startloader = false
   userid = ""
-  month = ""
+  month: number
   year = "2021"
 
   header = {"period": "Period",  
@@ -52,22 +55,24 @@ export class AttendancePage implements OnInit {
 
   async getAllUsers(){
     this.users = await this.dataService.fetchAllUsers()
+    if(this.users == null) await this.presentAlert("Server down","Unable to get users from database server!");
   }
 
   calculateAbsences(data: any){
-    let dated: number, dayspresent: number = 0
-    console.log(data.length)
-      for(let day = 1; day<31; day++){
+    let monthLength = (this.noOfDaysInMonths.with31days.includes(this.month)) ? 31 : (this.noOfDaysInMonths.with30days.includes(this.month))?30:28
+
+    let dayspresent: number = 0
+      for(let day = 1; day<=monthLength; day++){
         for(let element of data) {
-          dated = new Date(element.logindate).getDate()
-          if (dated == day) { 
+          let checkday = new Date(element.logindate).getDate()
+          if (checkday == day) { 
             dayspresent++
             break
           }
         }
       }
-    console.log("Days Present: "+dayspresent+" Days Absent: "+(31-dayspresent))
-    return {dayspresent: dayspresent, daysabsent: (31-dayspresent)}
+    console.log("Days Present: "+dayspresent+" Days Absent: "+(monthLength-dayspresent))
+    return {dayspresent: dayspresent, daysabsent: (monthLength-dayspresent)}
   }
 
   populateGrid(datagrid: any)

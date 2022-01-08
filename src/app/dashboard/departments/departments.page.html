@@ -1,0 +1,36 @@
+<ion-split-pane contentId="mainContent">
+
+  <ion-menu contentId="mainContent" type="overlay">
+    <ion-header>
+      <ion-toolbar>
+        <ion-item class="logo"><img src="../../assets/logowhite.png" /></ion-item>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="menu">
+      <ion-list>
+        <ion-item>
+          <ion-router-link class="menuitem" href="../../dashboard/">Home</ion-router-link>
+        </ion-item>
+        <ion-item>
+          <ion-router-link class="menuitem" href="../attendance/">Attendance</ion-router-link>
+        </ion-item>
+        <ion-item>
+          <ion-router-link class="selected" href="#">Departments</ion-router-link>
+        </ion-item>
+        <ion-item>
+          <ion-router-link class="menuitem" href="../dashboard/">Timetable</ion-router-link>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <!-- write your menu content here-->
+  </ion-menu>
+  <div class="ion-page" id="mainContent" main>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <div class="centerSection">
+        <h1 class="">Assign Departments to users here</h1>
+
+      </div>
+    </ion-buttons>
+
+  </div>

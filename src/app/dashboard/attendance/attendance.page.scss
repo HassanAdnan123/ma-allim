@@ -1,4 +1,10 @@
 @import "../dashboard.page.scss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+
+*{
+    font-family: 'Inter', sans-serif;
+}
+
 
 ion-split-pane{
     background-color: white;
@@ -62,11 +68,11 @@ ion-menu {
 }
 .options {
     font-size: 20px;
-    font-family: 'Exo';
+    font-family: 'Inter';
 }
 .ionselectCustom .alert-wrapper {
     font-size: 20px;
-    font-family: 'Exo' !important;
+    font-family: 'Exo';
 }
 
 .AbsenceSummary {

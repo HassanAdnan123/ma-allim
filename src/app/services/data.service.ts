@@ -29,7 +29,7 @@ export class DataService {
       "year": requestJson.year
     }
 
-    await this.httpClient.post("https://localhost:44385/api/maallim", postRequest, httpOptions).toPromise().then(data => {
+    await this.httpClient.post("https://maallim-backend-node.herokuapp.com/attendance", postRequest, httpOptions).toPromise().then(data => {
       this.responseFromAPI = data
     }, error => {
       this.setNoResponse = true
@@ -52,7 +52,7 @@ export class DataService {
     }
 
 
-    await this.httpClient.post("https://localhost:44385/api/user", httpOptions).toPromise().then(data => {
+    await this.httpClient.post("https://maallim-backend-node.herokuapp.com/users", httpOptions).toPromise().then(data => {
       this.usersCatalog = data
     }, error => {
       console.log("Unable to fetch users")

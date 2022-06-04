@@ -35,7 +35,8 @@ export class DataService {
       this.setNoResponse = true
     })
     if(!this.setNoResponse)
-      return this.responseFromAPI
+    { 
+      return this.responseFromAPI[0] }
     else { 
       console.log("Error response is set to: "+this.setNoResponse)
       return {error: this.setNoResponse} 

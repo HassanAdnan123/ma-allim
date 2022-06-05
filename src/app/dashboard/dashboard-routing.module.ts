@@ -11,9 +11,14 @@ const routes: Routes = [
   {
     path: 'attendance',
     loadChildren: () => import('./attendance/attendance.module').then( m => m.AttendancePageModule)
-  },  {
-    path: 'departments',
-    loadChildren: () => import('./departments/departments.module').then( m => m.DepartmentsPageModule)
+  },
+  {
+    path: 'timetable',
+    loadChildren: () => import('./timetable/timetable.module').then( m => m.TimetablePageModule)
+  },
+  {
+    path: 'periods',
+    loadChildren: () => import('./periods/periods.module').then( m => m.PeriodsPageModule)
   }
 
 ];

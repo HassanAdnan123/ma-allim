@@ -1,0 +1,115 @@
+<ion-split-pane contentId="mainContent">
+
+  <ion-menu contentId="mainContent" type="overlay">
+    <ion-header>
+      <ion-toolbar>
+        <ion-item class="logo"><img src="../../assets/logowhite.png" /></ion-item>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="menu">
+      <ion-list>
+        <ion-item>
+          <ion-router-link class="menuitem" href="../../dashboard/">Home</ion-router-link>
+        </ion-item>
+        <ion-item>
+          <ion-router-link class="menuitem" href="../attendance/">Attendance</ion-router-link>
+        </ion-item>
+        <ion-item>
+          <ion-router-link class="menuitem" href="../periods/">Change Periods</ion-router-link>
+        </ion-item>
+        <ion-item>
+          <ion-router-link class="selected" href="#">Timetable</ion-router-link>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <!-- write your menu content here-->
+  </ion-menu>
+  <div class="ion-page" id="mainContent" main>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <div class="centerSection">
+
+        <h2 class="">View / Change User Timetable: </h2>
+      <ion-grid>
+        <ion-row> 
+          <ion-col>
+
+          <ion-item [disabled] ="editEnabled" class="dropdown">
+          <ion-label floating class="options">User: </ion-label>
+          <ion-select   (ionChange)="selecteduserid = $event.target.value">
+            <ion-select-option *ngIf=" !users" > No users found :( </ion-select-option>
+            <ng-container class="options" *ngFor="let user of users">
+              <ion-select-option  [value]="user.userid">{{user.userid}} - {{user.name}} </ion-select-option>
+            </ng-container>
+          </ion-select>
+        </ion-item>
+      
+      </ion-col>
+      
+      <ion-col>
+        <ion-button class="fetchData" fill="solid" color="primary" (click)="getUserPeriodMapping()"> VIEW TIMETABLE
+        </ion-button>
+      
+      </ion-col>
+
+      <ion-col>
+        <ion-button *ngIf="!editEnabled" class="fetchData" fill="solid" color="primary" (click)="editTimetable()"> EDIT TIMETABLE
+        </ion-button>
+
+        <ion-button *ngIf="editEnabled" class="fetchData" fill="solid" color="primary" (click)="editTimetable()"> SAVE TIMETABLE
+        </ion-button>
+      
+      </ion-col>
+
+      </ion-row>
+      </ion-grid>
+
+        <ion-grid *ngIf="!editEnabled">
+          <ion-row class="header attendanceGrid">
+            <ion-col> USERNAME </ion-col>
+            <ion-col> PERIOD NAME </ion-col>
+          </ion-row>
+          <div class="datagrid">
+            <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of periodsmapping">
+              <ion-col> {{datum.NAME}} </ion-col>
+              <ion-col> {{datum.PERIOD}} </ion-col>
+              <!-- <ion-col *ngIf="datum.status === 'Late'" class="late"> {{datum.status}} </ion-col> -->
+            </ion-row>
+          </div>
+        </ion-grid>
+
+        <ion-list *ngIf="editEnabled">
+          <ion-grid>
+            <ion-row class="header attendanceGrid">
+              <ion-col> EDIT PERIODS </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-item *ngFor="let datum of setPeriodsMapping">
+            <ion-label>{{datum.val}}</ion-label>
+            <ion-checkbox slot="start" [(ngModel)]="datum.isChecked"></ion-checkbox>
+          </ion-item>
+        </ion-list>
+
+        <h2 class="">All Periods Information</h2>
+
+        <ion-grid>
+          <ion-row class="header attendanceGrid">
+            <ion-col> PERIOD </ion-col>
+            <ion-col> PERIOD START </ion-col>
+            <ion-col> PERIOD END </ion-col>
+          </ion-row>
+          <div class="datagrid">
+            <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of periodsData">
+              <ion-col> {{datum.PERIOD}} </ion-col>
+              <ion-col> {{datum.PERIODSTART}} </ion-col>
+              <ion-col> {{datum.PERIODEND}} </ion-col>
+              <!-- <ion-col *ngIf="datum.status === 'Late'" class="late"> {{datum.status}} </ion-col> -->
+            </ion-row>
+          </div>
+        </ion-grid>
+
+
+
+      </div>
+    </ion-buttons>
+  </div>

@@ -1,0 +1,73 @@
+<ion-split-pane contentId="mainContent">
+
+  <ion-menu contentId="mainContent" type="overlay">
+  <ion-header>
+    <ion-toolbar>
+      <ion-item class="logo"><img src="../../assets/logowhite.png"/></ion-item>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-router-link class="menuitem" href="../../dashboard/">Home</ion-router-link>
+        </ion-item>
+        <ion-item>
+          <ion-router-link class="menuitem" href="../attendance/">Attendance</ion-router-link>
+        </ion-item>
+        <ion-item>
+          <ion-router-link class="selected" href="#">Change Periods</ion-router-link>
+        </ion-item>
+        <ion-item>
+          <ion-router-link class="menuitem" href="../timetable/">Timetable</ion-router-link>
+        </ion-item>
+      </ion-list>
+  </ion-content>
+   <!-- write your menu content here-->
+</ion-menu>     
+<div class="ion-page" id = "mainContent" main>
+     <ion-buttons slot="start">      
+        <ion-menu-button></ion-menu-button>
+        <div class="centerSection">
+
+        <h2 class="">All Periods Information</h2>
+
+        <h1></h1>
+
+        <ion-grid>
+          <ion-row class="header attendanceGrid">
+            <ion-col> PERIOD </ion-col>
+            <ion-col> PERIOD START </ion-col>
+            <ion-col> PERIOD END </ion-col>
+            <ion-col>  </ion-col>
+          </ion-row>
+          <div class="datagrid">
+            <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of periodsData; let i = index">
+
+              <ion-col *ngIf="!editedRows[i].edited"> {{datum.PERIOD}} </ion-col>
+              <ion-col *ngIf="editedRows[i].edited"> <ion-input class = "editRow" [(ngModel)]="datum.PERIOD"></ion-input> </ion-col>
+
+              <ion-col *ngIf="!editedRows[i].edited"> {{datum.PERIODSTART}} </ion-col>
+              <ion-col *ngIf="editedRows[i].edited"> <ion-input class = "editRow" [(ngModel)]="datum.PERIODSTART"></ion-input> </ion-col>
+
+              <ion-col *ngIf="!editedRows[i].edited"> {{datum.PERIODEND}} </ion-col>
+              <ion-col *ngIf="editedRows[i].edited"> <ion-input class = "editRow" [(ngModel)]="datum.PERIODEND"></ion-input> </ion-col>
+
+              <ion-col>
+                <ion-button *ngIf="!editedRows[i].edited" class="fetchData" fill="solid" color="primary" (click)="editTimetable(i)"> EDIT
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button *ngIf="editedRows[i].edited" class="fetchData" fill="solid" color="secondary" (click)="saveRow(i,datum.PERIODID, datum.PERIOD, datum.PERIODSTART, datum.PERIODEND)"> SAVE
+                </ion-button>
+              </ion-col>
+              
+            </ion-row>
+          </div>
+        </ion-grid>
+
+
+
+
+      </div>
+     </ion-buttons>
+</div>

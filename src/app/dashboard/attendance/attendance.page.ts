@@ -38,6 +38,7 @@ export class AttendancePage implements OnInit {
           }
   ngOnInit() {
     this.getAllUsers()
+    this.dataService.populatePeriodicData()
   }
   async callService(){
     this.startloader = true

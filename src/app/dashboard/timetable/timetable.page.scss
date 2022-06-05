@@ -19,11 +19,12 @@ ion-menu {
     padding: 20px;
     margin: 10px;
     overflow: auto;
+    
 }
-.datagrid {
-    height: 60vh;
-    overflow:auto;
-}
+// .datagrid {
+//     height: 60vh;
+//     overflow:auto;
+// }
 .late {
     background-color: rgb(255, 206, 206);
     color: red;
@@ -64,10 +65,11 @@ ion-menu {
 }
 
 .dropdown {
-    width: 50%;
+    width: 100%;
 }
 .options {
     font-size: 20px;
+    overflow: visible;
     font-family: 'Inter';
 }
 .ionselectCustom .alert-wrapper {
@@ -82,4 +84,7 @@ ion-menu {
     font-weight: bold;
     font-size: 30px;
     font-family: 'Exo';
+}
+.inlineFlexForButton{
+    display: inline-flex;
 }

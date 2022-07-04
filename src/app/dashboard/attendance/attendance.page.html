@@ -92,16 +92,31 @@
           </ion-card-content>
           <ion-progress-bar type="indeterminate" *ngIf="startloader"></ion-progress-bar>
         </ion-card>
+
+          <div *ngIf="AbsenceSummary" style="padding: 10px; background-color:rgb(183, 247, 207)">
+            <h1 class="username"  *ngIf="AbsenceSummary"> {{selectedUser}} </h1>
+          </div>
+          <h3 class="userspecific" *ngIf="AbsenceSummary"> Details of Attendance </h3> 
+
         <ion-grid *ngIf="AbsenceSummary">
         <ion-row class="AbsenceSummary">
-          <ion-col> Days Present: {{AbsenceSummary.dayspresent}} </ion-col>
-          <ion-col> Days Absent: {{AbsenceSummary.daysabsent}} </ion-col>
+          <ion-col> Days Present: <span class="magnitude"> {{AbsenceSummary.dayspresent}} </span> </ion-col>
+          <ion-col> Days Absent: <span class="magnitude"> {{AbsenceSummary.daysabsent}} </span> </ion-col>
+          <ion-col> Holidays (Friday): <span class="magnitude"> {{AbsenceSummary.noOfFridays}} </span> </ion-col>
         </ion-row>
-        </ion-grid>
+        <ion-row class="AbsenceSummary">
+          <ion-col> Total Working Days: <span class="magnitude">  {{AbsenceSummary.totalWorkDays}} </span> </ion-col>
+          <ion-col> Total Days Late: <span class="magnitude">  {{AbsenceSummary.daysLate}} </span> </ion-col>
+          <ion-col>  </ion-col>
+        </ion-row>
         
-          <ion-grid>
+        </ion-grid>
+
+        <h3 class="userspecific"  *ngIf="AbsenceSummary"> Complete Data </h3>
+
+          <ion-grid *ngIf="AbsenceSummary">
           <ion-row class="header attendanceGrid">
-            <ion-col> {{header.name}} </ion-col>
+            <!-- <ion-col> {{header.name}} </ion-col> -->
             <ion-col> {{header.logindate}} </ion-col>
             <ion-col> {{header.logintime}} </ion-col>
             <ion-col> {{header.period}} </ion-col>
@@ -110,13 +125,13 @@
           </ion-row>
           <div class="datagrid">
             <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of data">
-              <ion-col> {{datum.name}} </ion-col>
+              <!-- <ion-col> {{datum.name}} </ion-col> -->
               <ion-col> {{datum.logindate}} </ion-col>
               <ion-col> {{datum.logintime}} </ion-col>
               <ion-col> {{datum.period}} </ion-col>
               <ion-col *ngIf="datum.status === 'Late'" class="late"> {{datum.status}} </ion-col>
               <ion-col *ngIf="datum.status === 'On time'" class="onTime"> {{datum.status}} </ion-col>
-              <ion-col> {{datum.minuteslate}} </ion-col>
+              <ion-col> {{datum.minuteslateinhours}} </ion-col>
 
             </ion-row>
           </div>

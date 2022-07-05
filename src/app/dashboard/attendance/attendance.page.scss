@@ -54,8 +54,12 @@ ion-menu {
     margin: 5px;
 }
 .userspecific{
+    display: inline-flex;
     color: #38686A;
     font-weight: bold;
+}
+#exportToCSV{
+    display: none;
 }
 
 .username{
@@ -75,6 +79,9 @@ ion-menu {
 .fetchData {
     margin-top: 20px;
     //height: 50px;
+}
+.export{
+    height: 50px;
 }
 
 .dropdown {

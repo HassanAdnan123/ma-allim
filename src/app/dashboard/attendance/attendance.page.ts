@@ -16,6 +16,9 @@ export class AttendancePage implements OnInit {
   data = []
   users = []
 
+  monthsInWords = [ 'January','February','March','April','May','June',
+                    'July','August','September','October','November','December']
+
   AbsenceSummary: object = null
   noOfDaysInMonths = {
     with30days: [4,6,9,11],
@@ -148,4 +151,41 @@ export class AttendancePage implements OnInit {
     //console.log('onDidDismiss resolved with role', role);
   }
 
+  toCsv(table){
+    // Query all rows
+    const rows = table.querySelectorAll('tr');
+
+    return [].slice
+        .call(rows)
+        .map(function (row) {
+            // Query all cells
+            const cells = row.querySelectorAll('th,td');
+            return [].slice
+                .call(cells)
+                .map(function (cell) {
+                    return cell.textContent;
+                })
+                .join(',');
+        })
+        .join('\n');
+}
+  download(text, fileName){
+    const link = document.createElement('a');
+    link.setAttribute('href', `data:text/csv;charset=utf-8,${encodeURIComponent(text)}`);
+    link.setAttribute('download', fileName);
+
+    link.style.display = 'none';
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+  }
+
+  saveAsCsv(){
+    const table = document.getElementById('exportToCSV')
+    const csv = this.toCsv(table);
+    // Download it
+    this.download(csv, this.selectedUser +' ('+this.monthsInWords[this.month-1]+'-'+this.year+')' +'.csv');
+  }
 }

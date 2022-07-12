@@ -11,14 +11,15 @@ export class DataService {
   constructor(public httpClient: HttpClient) { }
 
 
-  //environment = {backendApi: "https://maallim-backend-node.herokuapp.com"}
-  environment = {backendApi: "http://localhost:8080"}
+  environment = {backendApi: "https://maallim-backend-node.herokuapp.com"}
+  //environment = {backendApi: "http://localhost:8080"}
 
   responseFromAPI: any
   usersCatalog: any
   periods: any
   periodsmapping: any
   setNoResponse = false
+  periodduration: any
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -138,5 +139,26 @@ export class DataService {
     
   }
 
+  async getPeriodDuration() {
+    await this.httpClient.get(`${this.environment.backendApi}/periodduration`, this.httpOptions).toPromise().then(data => {
+      this.periodduration = data
+    }, error => {
+      console.log("Error getting period duration.", error)
+    })
+    return this.periodduration[0].value
+  }
+
+
+  async savePeriodDuration(PeriodDuration: number) {
+    
+    let postRequest = {"periodduration": PeriodDuration}
+    console.log(postRequest)
+    await this.httpClient.post(`${this.environment.backendApi}/updateperiodduration`,postRequest, this.httpOptions).toPromise().then(data => {
+      console.log(data)
+    }, error => {
+      console.log("Error updating period", error)
+    })
+    
+  }
 
 }

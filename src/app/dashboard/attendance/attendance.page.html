@@ -92,16 +92,42 @@
           </ion-card-content>
           <ion-progress-bar type="indeterminate" *ngIf="startloader"></ion-progress-bar>
         </ion-card>
+
+          <div *ngIf="AbsenceSummary" style="padding: 10px; background-color:rgb(183, 247, 207)">
+            <h1 class="username"  *ngIf="AbsenceSummary"> {{selectedUser}} </h1>
+          </div>
+          <h3 class="userspecific" *ngIf="AbsenceSummary"> Details of Attendance </h3> 
+
         <ion-grid *ngIf="AbsenceSummary">
         <ion-row class="AbsenceSummary">
-          <ion-col> Days Present: {{AbsenceSummary.dayspresent}} </ion-col>
-          <ion-col> Days Absent: {{AbsenceSummary.daysabsent}} </ion-col>
+          <ion-col> Days Present: <span class="magnitude"> {{AbsenceSummary.dayspresent}} </span> </ion-col>
+          <ion-col> Days Absent: <span class="magnitude"> {{AbsenceSummary.daysabsent}} </span> </ion-col>
+          <ion-col> Holidays (Friday): <span class="magnitude"> {{AbsenceSummary.noOfFridays}} </span> </ion-col>
+        </ion-row>
+        <ion-row class="AbsenceSummary">
+          <ion-col> Total Working Days: <span class="magnitude">  {{AbsenceSummary.totalWorkDays}} </span> </ion-col>
+          <ion-col> Total Days Late: <span class="magnitude">  {{AbsenceSummary.daysLate}} </span> </ion-col>
+          <ion-col> Total Mins. Late: <span class="magnitude">  {{AbsenceSummary.totalminuteslate}} </span> </ion-col>
+          <!-- <ion-col>  </ion-col> -->
+        </ion-row>
+        
+        </ion-grid>
+        <ion-grid>
+          <ion-row>
+          <ion-col> <h3 class="userspecific"  *ngIf="AbsenceSummary"> Complete Data </h3>  </ion-col>
+          <ion-col> </ion-col>
+          <ion-col> </ion-col>
+          <ion-col>
+            <ion-button shape="round" expand="full" class="export" *ngIf="AbsenceSummary" fill="solid" color="primary" (click)="saveAsCsv()"> 
+              <ion-icon slot="end" name="document-outline"></ion-icon> Save Attendance as CSV File
+            </ion-button>
+          </ion-col>
         </ion-row>
         </ion-grid>
-        
-          <ion-grid>
+
+          <ion-grid *ngIf="AbsenceSummary">
           <ion-row class="header attendanceGrid">
-            <ion-col> {{header.name}} </ion-col>
+            <!-- <ion-col> {{header.name}} </ion-col> -->
             <ion-col> {{header.logindate}} </ion-col>
             <ion-col> {{header.logintime}} </ion-col>
             <ion-col> {{header.period}} </ion-col>
@@ -110,15 +136,50 @@
           </ion-row>
           <div class="datagrid">
             <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of data">
-              <ion-col> {{datum.name}} </ion-col>
+              <!-- <ion-col> {{datum.name}} </ion-col> -->
               <ion-col> {{datum.logindate}} </ion-col>
               <ion-col> {{datum.logintime}} </ion-col>
               <ion-col> {{datum.period}} </ion-col>
               <ion-col *ngIf="datum.status === 'Late'" class="late"> {{datum.status}} </ion-col>
               <ion-col *ngIf="datum.status === 'On time'" class="onTime"> {{datum.status}} </ion-col>
-              <ion-col> {{datum.minuteslate}} </ion-col>
+              <ion-col> {{datum.minuteslateinhours}} </ion-col>
 
             </ion-row>
+            <table id="exportToCSV">
+              
+              <tr>
+                <th> Present: {{AbsenceSummary.dayspresent}}</th>
+                <th> Absent: {{AbsenceSummary.daysabsent}}</th>
+                <th> Holidays (Friday): {{AbsenceSummary.noOfFridays}}</th>
+                <th> Late Days: {{AbsenceSummary.daysLate}}</th>
+                <th> Total Late Min.: {{AbsenceSummary.totalminuteslate}}</th>
+              </tr>
+
+              <tr>
+                <td>--------------------</td>
+                <td>--------------------</td>
+                <td>--------------------</td>
+                <td>--------------------</td>
+                <td>--------------------</td>
+              </tr>
+
+              <tr>
+                <th>{{header.logindate}}</th>
+                <th>{{header.logintime}}</th>
+                <th>{{header.period}}</th>
+                <th>{{header.status}}</th>
+                <th>{{header.minuteslateinhours}}</th>
+              </tr>
+              <ng-container *ngFor="let datum of data">
+                <tr>
+                  <td> {{datum.logindate}} </td>
+                  <td> {{datum.logintime}} </td>
+                  <td> {{datum.period}} </td>
+                  <td> {{datum.status}} </td>
+                  <td> {{datum.minuteslateinhours}} </td>
+                </tr>
+            </ng-container>
+            </table>
           </div>
         </ion-grid>
 

@@ -28,10 +28,24 @@
      <ion-buttons slot="start">      
         <ion-menu-button></ion-menu-button>
         <div class="centerSection">
-
+          
+          <ion-grid>
+            <h3>Current Period Duration:</h3>
+            <ion-row class="rowsdata attendanceGrid">
+              <ion-col *ngIf="!editedPeriodDuration"> {{periodduration}} minutes </ion-col> 
+              <ion-col *ngIf="editedPeriodDuration"> <ion-input class = "editRow" [(ngModel)]="periodduration"></ion-input></ion-col>
+              <ion-col>
+                <ion-button *ngIf="!editedPeriodDuration" class="fetchData" fill="solid" color="primary" (click)="editPeriodDuration()"> EDIT DURATION
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button *ngIf="editedPeriodDuration" class="fetchData" fill="solid" color="secondary" (click)="savePeriodDuration()"> SAVE DURATION
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        
         <h2 class="">All Periods Information</h2>
-
-        <h1></h1>
 
         <ion-grid>
           <ion-row class="header attendanceGrid">

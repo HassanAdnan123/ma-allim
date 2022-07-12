@@ -13,9 +13,12 @@ export class PeriodsPage implements OnInit {
   periodsData: any
   editEnabled = false
   editedRows= []
+  editedPeriodDuration = false
+  periodduration: number
 
   ngOnInit() {
     this.getAllPeriods()
+    this.getPeriodsDuration()
   }
 
   async getAllPeriods(){
@@ -29,7 +32,7 @@ export class PeriodsPage implements OnInit {
       this.editedRows.push({PERIODID: this.periodsData[i].PERIODID, edited: false})
     }
 
-    console.log(this.editedRows)
+    //console.log(this.editedRows)
     
   
   }
@@ -45,11 +48,31 @@ export class PeriodsPage implements OnInit {
 
   }
 
+  async editPeriodDuration(){
+    this.editedPeriodDuration = true
+  }
+
   async saveRow(i: number, PERIODID: number, PERIOD: string, PERIODSTART: string, PERIODEND: string){
 
     this.editedRows[i].edited = false
     this.dataService.savePeriod(PERIODID,PERIOD,PERIODSTART,PERIODEND)
     console.log("Updating data for PeriodId ", PERIODID)
+
+  }
+
+  async getPeriodsDuration(){
+    this.periodduration = await this.dataService.getPeriodDuration()
+    if(this.periodduration==null){
+      console.log("Cannot get periods duration. ")
+      this.periodduration = 0
+    }
+  }
+
+  async savePeriodDuration(){
+
+    this.editedPeriodDuration = false
+    this.dataService.savePeriodDuration(this.periodduration)
+    console.log(`Updating period duration to ${this.periodduration}`)
 
   }
 

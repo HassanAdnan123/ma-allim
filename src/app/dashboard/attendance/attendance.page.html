@@ -107,7 +107,8 @@
         <ion-row class="AbsenceSummary">
           <ion-col> Total Working Days: <span class="magnitude">  {{AbsenceSummary.totalWorkDays}} </span> </ion-col>
           <ion-col> Total Days Late: <span class="magnitude">  {{AbsenceSummary.daysLate}} </span> </ion-col>
-          <ion-col>  </ion-col>
+          <ion-col> Total Mins. Late: <span class="magnitude">  {{AbsenceSummary.totalminuteslate}} </span> </ion-col>
+          <!-- <ion-col>  </ion-col> -->
         </ion-row>
         
         </ion-grid>
@@ -149,11 +150,13 @@
               <tr>
                 <th> Present: {{AbsenceSummary.dayspresent}}</th>
                 <th> Absent: {{AbsenceSummary.daysabsent}}</th>
-                <th> Off Days (Friday): {{AbsenceSummary.noOfFridays}}</th>
-                <th> Late: {{AbsenceSummary.daysLate}}</th>
+                <th> Holidays (Friday): {{AbsenceSummary.noOfFridays}}</th>
+                <th> Late Days: {{AbsenceSummary.daysLate}}</th>
+                <th> Total Late Min.: {{AbsenceSummary.totalminuteslate}}</th>
               </tr>
 
               <tr>
+                <td>--------------------</td>
                 <td>--------------------</td>
                 <td>--------------------</td>
                 <td>--------------------</td>

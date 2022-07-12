@@ -76,6 +76,7 @@ export class AttendancePage implements OnInit {
     let noOfFridays = 0
 
     let dayspresent: number = 0, daysLate: number = 0;
+    let totalminuteslate = 0, count = 0
       for(let day = 1; day<=monthLength; day++){
 
         // Check for days the user was present
@@ -97,17 +98,25 @@ export class AttendancePage implements OnInit {
           }
         }
 
+        
+
         //Check for official off days (Fridays)
         var dayCheck = new Date(this.year+'-'+this.month+'-'+day)
         if(dayCheck.toString().includes('Fri')) noOfFridays++
 
       }
-    //console.log("Days Present: "+dayspresent+" Days Absent: "+(monthLength-noOfFridays-dayspresent))
+      for(let element of data) {
+        count++
+        if(element.minuteslate>5){ 
+          totalminuteslate += parseInt(element.minuteslate)
+          }
+      }
     return {dayspresent: dayspresent, 
       daysabsent: (monthLength-noOfFridays-dayspresent),
       totalWorkDays: monthLength-noOfFridays,
       noOfFridays: noOfFridays,
-      daysLate: daysLate
+      daysLate: daysLate,
+      totalminuteslate: this.convertToHours(totalminuteslate)
     }
   }
 

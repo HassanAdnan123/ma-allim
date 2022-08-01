@@ -1,0 +1,90 @@
+@import "../dashboard.page.scss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+
+*{
+    font-family: 'Inter', sans-serif;
+}
+
+
+ion-split-pane{
+    background-color: white;
+}
+ion-menu {
+    --ion-background-color: #38686A;
+}
+.centerSection {
+    background-color: $mBackground;
+    height: 97vh; /* For 100% screen height */
+    width:  90vw; /* For 100% screen width */
+    padding: 20px;
+    margin: 10px;
+    overflow: auto;
+}
+.datagrid {
+    height: 60vh;
+    overflow:auto;
+}
+.late {
+    background-color: rgb(255, 206, 206);
+    color: red;
+}
+.onTime {
+    background-color: rgb(204, 255, 225);
+    color: rgb(0, 128, 96);
+}
+.header {
+    background-color: #38686A;
+    text-indent: 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Exo';
+}
+
+.rowsdata{
+    background-color: white;
+    font-size: 20px;
+    font-family: 'Exo';
+    padding: 5px;
+    margin: 5px;
+}
+
+.attendanceGrid{
+    border: 1px solid grey;
+}
+
+.disableScroll{
+    overflow-y:hidden;
+    overflow-x:hidden;
+}
+
+.fetchData {
+    margin-top: 20px;
+    //height: 50px;
+}
+
+.dropdown {
+    width: 50%;
+}
+.options {
+    font-size: 20px;
+    font-family: 'Inter';
+}
+.ionselectCustom .alert-wrapper {
+    font-size: 20px;
+    font-family: 'Exo';
+}
+
+.AbsenceSummary {
+    background-color: wheat;
+    text-indent: 15px;
+    color: #38686A;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Exo';
+}
+
+.editRow{
+    background-color: rgb(202, 248, 202);
+    color: rgb(85, 145, 85);
+}

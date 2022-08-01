@@ -19,7 +19,11 @@ const routes: Routes = [
   {
     path: 'periods',
     loadChildren: () => import('./periods/periods.module').then( m => m.PeriodsPageModule)
+  },  {
+    path: 'machines',
+    loadChildren: () => import('./machines/machines.module').then( m => m.MachinesPageModule)
   }
+
 
 ];
 

@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "maallimportal"
-  }
+    "default": "maallimportal",
+    "prod": "maallimportal"
+  },
+  "targets": {},
+  "etags": {}
 }

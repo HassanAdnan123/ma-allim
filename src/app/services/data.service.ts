@@ -11,7 +11,7 @@ export class DataService {
   constructor(public httpClient: HttpClient) { }
 
 
-  environment = {backendApi: "https://maallim-backend-node.herokuapp.com"}
+  environment = {backendApi: "https://maallim-backend-node.vercel.app/"}
   //environment = {backendApi: "http://localhost:8080"}
 
   responseFromAPI: any

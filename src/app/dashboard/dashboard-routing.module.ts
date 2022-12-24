@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Router } from '@angular/router';
 
 import { DashboardPage } from './dashboard.page';
 
@@ -19,7 +19,8 @@ const routes: Routes = [
   {
     path: 'periods',
     loadChildren: () => import('./periods/periods.module').then( m => m.PeriodsPageModule)
-  },  {
+  },
+  {
     path: 'machines',
     loadChildren: () => import('./machines/machines.module').then( m => m.MachinesPageModule)
   }
@@ -28,7 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), RouterModule],
   exports: [RouterModule],
 })
 export class DashboardPageRoutingModule {}

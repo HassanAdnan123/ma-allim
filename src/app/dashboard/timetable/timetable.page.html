@@ -93,16 +93,18 @@
           </ion-item>
         </ion-list>
 
-        <h2 class="">All Periods Information</h2>
+        <h2 class="">All Machine Periods:</h2>
 
         <ion-grid>
           <ion-row class="header attendanceGrid">
+            <ion-col> MACHINE </ion-col>
             <ion-col> PERIOD </ion-col>
-            <ion-col> PERIOD START </ion-col>
-            <ion-col> PERIOD END </ion-col>
+            <ion-col> START TIME </ion-col>
+            <ion-col> END TIME </ion-col>
           </ion-row>
           <div class="datagrid">
             <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of periodsData">
+              <ion-col> {{datum.machine_name}} </ion-col>
               <ion-col> {{datum.PERIOD}} </ion-col>
               <ion-col> {{datum.PERIODSTART}} </ion-col>
               <ion-col> {{datum.PERIODEND}} </ion-col>

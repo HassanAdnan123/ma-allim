@@ -32,8 +32,34 @@
         <ion-menu-button></ion-menu-button>
         <div class="centerSection">
         
-        <h2 class="">All Machines are listed here</h2>
+        <h2>All Machines are listed here</h2>
+        
+        <ion-grid>
+          <ion-row class="header attendanceGrid">
+            <ion-col> MACHINE NAME </ion-col>
+          </ion-row>
+          <div class="datagrid">
+            <ion-row class="rowsdata-empty attendanceGrid" *ngIf="!machines?.length">
+              <ion-col>No machines added</ion-col>
+            </ion-row>
+            <ion-row class="rowsdata attendanceGrid" *ngFor="let machine of machines">
+              <ion-col> {{machine.machine_name}} </ion-col>
+            </ion-row>
+            <ion-row>
+              <br>
+              <h2>Add New Machines</h2>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-input class="inputFormatting fixedHeight" type="text" placeholder="Type machine name here.." [(ngModel)]="addedMachine"> </ion-input>
+              </ion-col>
+              <ion-col>
+                <ion-button class="fetchData fixedHeight" fill="solid" color="primary" (click)="addNewMachine()"> Add </ion-button>
+              </ion-col>
+            </ion-row>
 
+          </div>
+        </ion-grid>
       </div>
      </ion-buttons>
 </div>

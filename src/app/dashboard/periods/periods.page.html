@@ -31,31 +31,58 @@
      <ion-buttons slot="start">      
         <ion-menu-button></ion-menu-button>
         <div class="centerSection">
-          
-          <ion-grid>
-            <h3>Current Period Duration:</h3>
-            <ion-row class="rowsdata attendanceGrid">
-              <ion-col *ngIf="!editedPeriodDuration"> {{periodduration}} minutes </ion-col> 
-              <ion-col *ngIf="editedPeriodDuration"> <ion-input class = "editRow" [(ngModel)]="periodduration"></ion-input></ion-col>
+          <ion-item class="dropdown">
+            <ion-label class="options">Select a machine</ion-label>
+            <ion-select  (ionChange)="selectedMachineId = $event.target.value">
+              <ng-container class="options" *ngFor="let machine of machines">
+                <ion-select-option  [value]="machine.machine_id">{{machine.machine_id}} - {{machine.machine_name}} </ion-select-option>
+              </ng-container>
+            </ion-select>
+            <ion-button fill="solid" color="primary" (click)="getAllPeriods()">GET PERIODS</ion-button>
+
+
+            <ion-button *ngIf="!addPeriodFlag" fill="solid" (click)="toggleAddPeriod()" color="success">Add New Period</ion-button>
+  
+
+          </ion-item>
+          <ion-grid *ngIf="addPeriodFlag">
+            <h3>Add New Period</h3>
+            <ion-row class="rowsdata attendanceGrid expanded">
               <ion-col>
-                <ion-button *ngIf="!editedPeriodDuration" class="fetchData" fill="solid" color="primary" (click)="editPeriodDuration()"> EDIT DURATION
-                </ion-button>
+                <ion-item fill="solid">
+                  <ion-label position="floating" color="tertiary">Period Name</ion-label>
+                  <ion-input [(ngModel)]="formData.periodName" placeholder="Nazra"></ion-input>
+                </ion-item> 
               </ion-col>
               <ion-col>
-                <ion-button *ngIf="editedPeriodDuration" class="fetchData" fill="solid" color="secondary" (click)="savePeriodDuration()"> SAVE DURATION
-                </ion-button>
+                <ion-item fill="solid">
+                  <ion-label position="floating" color="tertiary">Period Start (24h)</ion-label>
+                  <ion-input [(ngModel)]="formData.periodStart" placeholder="12:00"></ion-input>
+                </ion-item> 
+              </ion-col>
+              <ion-col>
+                <ion-item fill="solid">
+                  <ion-label position="floating" color="tertiary">Period End (24h)</ion-label>
+                  <ion-input [(ngModel)]="formData.periodEnd" placeholder="18:00"></ion-input>
+                </ion-item> 
+              </ion-col>
+              <ion-col>
+                <ion-button fill="solid" (click)="addPeriod()" color="success">Save</ion-button>
+                <ion-button fill="solid" (click)="toggleAddPeriod()" color="danger">Close</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
         
-        <h2 class="">All Periods Information</h2>
+        <h2 class="">Periods in the selected machine:</h2>
 
         <ion-grid>
-          <ion-row class="header attendanceGrid">
-            <ion-col> PERIOD </ion-col>
-            <ion-col> PERIOD START </ion-col>
-            <ion-col> PERIOD END </ion-col>
-            <ion-col>  </ion-col>
+          <ion-row class="header attendanceGrid ion-align-items-center">
+            <ion-col> Period Name </ion-col>
+            <ion-col> Start Time </ion-col>
+            <ion-col> End Time </ion-col>
+            <ion-col></ion-col>
+            <ion-col></ion-col>
+
           </ion-row>
           <div class="datagrid">
             <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of periodsData; let i = index">
@@ -70,11 +97,16 @@
               <ion-col *ngIf="editedRows[i].edited"> <ion-input class = "editRow" [(ngModel)]="datum.PERIODEND"></ion-input> </ion-col>
 
               <ion-col>
-                <ion-button *ngIf="!editedRows[i].edited" class="fetchData" fill="solid" color="primary" (click)="editTimetable(i)"> EDIT
+                <ion-button class="customBtn" *ngIf="!editedRows[i].edited" class="fetchData" fill="solid" color="primary" (click)="editTimetable(i)"> EDIT
                 </ion-button>
+
+                <ion-button class="customBtn" *ngIf="editedRows[i].edited" class="fetchData" fill="solid" color="secondary" (click)="saveRow(i,datum.PERIODID, datum.PERIOD, datum.PERIODSTART, datum.PERIODEND)"> SAVE
+                </ion-button>
+
               </ion-col>
+
               <ion-col>
-                <ion-button *ngIf="editedRows[i].edited" class="fetchData" fill="solid" color="secondary" (click)="saveRow(i,datum.PERIODID, datum.PERIOD, datum.PERIODSTART, datum.PERIODEND)"> SAVE
+                <ion-button class="customBtn" class="fetchData" fill="solid" color="danger" (click)="deletePeriod(datum.PERIODID)"> DELETE
                 </ion-button>
               </ion-col>
               

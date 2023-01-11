@@ -49,6 +49,15 @@ ion-menu {
     margin: 5px;
 }
 
+.rowsdata-empty {
+    background-color: white;
+    font-size: 20px;
+    font-family: 'Exo';
+    color: red;
+    padding: 5px;
+    margin: 5px;
+}
+
 .attendanceGrid{
     border: 1px solid grey;
 }
@@ -87,4 +96,14 @@ ion-menu {
 .editRow{
     background-color: rgb(202, 248, 202);
     color: rgb(85, 145, 85);
+}
+
+.inputFormatting {
+    background-color: white;
+}
+
+.fixedHeight {
+    margin-top: 0px !important;
+    height: 40px;
+    max-height: 40px;
 }

@@ -7,6 +7,7 @@ import { ThrowStmt } from '@angular/compiler';
   selector: 'app-attendance',
   templateUrl: './attendance.page.html',
   styleUrls: ['./attendance.page.scss'],
+  
 })
 export class AttendancePage implements OnInit {
 
@@ -15,6 +16,7 @@ export class AttendancePage implements OnInit {
   APIdata: any
   data = []
   users = []
+  machines = []
 
   monthsInWords = [ 'January','February','March','April','May','June',
                     'July','August','September','October','November','December']
@@ -41,7 +43,7 @@ export class AttendancePage implements OnInit {
             "minuteslate": "Minutes Late"
           }
   ngOnInit() {
-    this.getAllUsers()
+    this.getAllData()
     this.dataService.populatePeriodicData()
   }
   async callService(){
@@ -62,8 +64,9 @@ export class AttendancePage implements OnInit {
   }
   }
 
-  async getAllUsers(){
+  async getAllData(){
     this.users = await this.dataService.fetchAllUsers()
+    this.machines = await this.dataService.getAllMachines()
     if(this.users == null) await this.presentAlert("Server down","Unable to get users from database server!");
   }
 

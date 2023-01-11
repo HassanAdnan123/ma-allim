@@ -37,6 +37,15 @@
           <ion-card-content >
 
             <ion-item class="dropdown">
+              <ion-label class="options">Select a machine</ion-label>
+              <ion-select  (ionChange)="machineid = $event.target.value">
+                <ng-container class="options" *ngFor="let machine of machines">
+                  <ion-select-option  [value]="machine.machine_id">{{machine.machine_id}} - {{machine.machine_name}} </ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+
+            <ion-item class="dropdown">
               <ion-label class="options">Select a user</ion-label>
               <ion-select  (ionChange)="userid = $event.target.value">
                 <ng-container class="options" *ngFor="let user of users">

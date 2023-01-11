@@ -11,8 +11,8 @@ export class DataService {
   constructor(public httpClient: HttpClient) { }
 
 
-  environment = {backendApi: "https://maallim-backend-node.vercel.app"}
-  // environment = {backendApi: "http://localhost:8080"}
+  // environment = {backendApi: "https://maallim-backend-node.vercel.app"}
+  environment = {backendApi: "http://localhost:8080"}
 
   responseFromAPI: any
   usersCatalog: any
@@ -51,6 +51,11 @@ export class DataService {
     }
   }
 
+
+  async postRequest(requestBody, requestUrl) {
+    return this.httpClient.post(`${this.environment.backendApi}/${requestUrl}`, requestBody, this.httpOptions).toPromise();
+  }
+
   async fetchAllUsers() {
     this.setNoResponse = false
 
@@ -71,6 +76,21 @@ export class DataService {
 
 
     await this.httpClient.post(`${this.environment.backendApi}/periods`, this.httpOptions).toPromise().then(data => {
+      this.periods = data
+    }, error => {
+      console.log("Unable to get periods.")
+    })
+
+      return this.periods
+    
+  }
+
+  async fetchAllPeriodsByMachine(machineId: any) {
+
+    let postRequest = {"machine_id" : machineId}
+    console.log(postRequest)
+
+    await this.httpClient.post(`${this.environment.backendApi}/periodsbymachineid`,postRequest, this.httpOptions).toPromise().then(data => {
       this.periods = data
     }, error => {
       console.log("Unable to get periods.")
@@ -152,12 +172,36 @@ export class DataService {
   async savePeriodDuration(PeriodDuration: number) {
     
     let postRequest = {"periodduration": PeriodDuration}
-    console.log(postRequest)
     await this.httpClient.post(`${this.environment.backendApi}/updateperiodduration`,postRequest, this.httpOptions).toPromise().then(data => {
       console.log(data)
     }, error => {
       console.log("Error updating period", error)
     })
+    
+  }
+
+  async getAllMachines(){
+    let machines: any
+    await this.httpClient.get(`${this.environment.backendApi}/getallmachines`, this.httpOptions).toPromise().then(data => {
+      machines = data
+    }, error => {
+      console.log("Error getting machine details", error)
+    })
+    return machines
+  }
+
+  async addNewMachine(machine){
+    let postRequest = {"machine": machine}
+    let response: any
+    await this.httpClient.post(`${this.environment.backendApi}/addmachine`,postRequest, this.httpOptions).toPromise().then(data => {
+      response = data
+    }, error => {
+      console.log("Error adding new machine", error)
+    })
+    return response
+  }
+
+  async deleteMachine(){
     
   }
 

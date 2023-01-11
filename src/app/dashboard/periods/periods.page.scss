@@ -34,11 +34,16 @@ ion-menu {
 }
 .header {
     background-color: #38686A;
-    text-indent: 15px;
+    display: flex;
+    align-items: center;
     color: white;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 20px;
     font-family: 'Exo';
+}
+
+.indentation{
+    text-indent: 15px;
 }
 
 .rowsdata{
@@ -87,4 +92,13 @@ ion-menu {
 .editRow{
     background-color: rgb(202, 248, 202);
     color: rgb(85, 145, 85);
+}
+
+.customBtn {
+    margin-top: -20px;
+    text-align: center;
+}
+
+.expanded {
+    height: 70px;
 }

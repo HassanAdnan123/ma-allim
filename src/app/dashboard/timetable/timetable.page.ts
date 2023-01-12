@@ -12,12 +12,13 @@ export class TimetablePage implements OnInit {
 
   ngOnInit() {
     this.getAllPeriods()
-    this.getAllUsers()
+    this.fetchMachines()
   }
 
   periodsData: any
   users: []
   periodsmapping: any
+  machines: any
   selecteduserid: any
   editEnabled = false
 
@@ -99,6 +100,12 @@ async editTimetable(){
   }
 }
 
+}
+async fetchMachines(){
+  this.machines = await this.dataService.getAllMachines()
+  this.machines.forEach(machine => {
+    machine.machine_name = machine.machine_name.toUpperCase(); // Caps case
+  });
 }
 
 }

@@ -37,6 +37,17 @@
         <ion-row> 
           <ion-col>
 
+            <ion-item class="dropdown">
+              <ion-label class="options">Select a machine</ion-label>
+              <ion-select  (ionChange)="selectedMachineId = $event.target.value">
+                <ng-container class="options" *ngFor="let machine of machines">
+                  <ion-select-option  [value]="machine.machine_id">{{machine.machine_id}} - {{machine.machine_name}} </ion-select-option>
+                </ng-container>
+              </ion-select>
+              <ion-button fill="solid" color="primary" (click)="getAllPeriods()">GET USERS</ion-button>
+  
+            </ion-item>
+
           <ion-item [disabled] ="editEnabled" class="dropdown">
           <ion-label floating class="options">User: </ion-label>
           <ion-select   (ionChange)="selecteduserid = $event.target.value">
@@ -46,23 +57,19 @@
             </ng-container>
           </ion-select>
         </ion-item>
-      
-      </ion-col>
-      
-      <ion-col>
-        <ion-button class="fetchData" fill="solid" color="primary" (click)="getUserPeriodMapping()"> VIEW TIMETABLE
-        </ion-button>
-      
-      </ion-col>
 
-      <ion-col>
-        <ion-button *ngIf="!editEnabled" class="fetchData" fill="solid" color="primary" (click)="editTimetable()"> EDIT TIMETABLE
-        </ion-button>
-
-        <ion-button *ngIf="editEnabled" class="fetchData" fill="solid" color="primary" (click)="editTimetable()"> SAVE TIMETABLE
-        </ion-button>
+        <ion-item>
+          <ion-button class="fetchData" fill="solid" color="primary" (click)="getUserPeriodMapping()"> VIEW TIMETABLE
+          </ion-button>
+          <ion-button *ngIf="!editEnabled" class="fetchData" fill="solid" color="primary" (click)="editTimetable()"> EDIT TIMETABLE
+          </ion-button>
+          <ion-button *ngIf="editEnabled" class="fetchData" fill="solid" color="primary" (click)="editTimetable()"> SAVE TIMETABLE
+          </ion-button>
+        </ion-item>
       
       </ion-col>
+      
+      
 
       </ion-row>
       </ion-grid>

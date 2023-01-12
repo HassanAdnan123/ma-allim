@@ -17,6 +17,8 @@ export class AttendancePage implements OnInit {
   data = []
   users = []
   machines = []
+  selectedMachineId: any = null
+  formData: any = {}
 
   monthsInWords = [ 'January','February','March','April','May','June',
                     'July','August','September','October','November','December']
@@ -46,6 +48,29 @@ export class AttendancePage implements OnInit {
     this.getAllData()
     this.dataService.populatePeriodicData()
   }
+
+
+  async selectMachine(machineId: any){
+    this.selectedMachineId = machineId
+    this.getAllUsersByMachine()
+  }
+
+  async getAllUsersByMachine(){
+    if (this.selectedMachineId == null) {
+      alert("Please select a machine first!")
+    }
+    else {
+      this.formData = {...this.formData,
+        machineId : this.selectedMachineId
+      }
+  
+      await this.dataService.postRequest(this.formData,'usersbymachine').then((data: any)=>{
+        this.users = data
+      })
+    }
+  
+  }
+
   async callService(){
     if(this.userid === "" || this.year === "" || this.month === null){
       this.presentAlert("Insufficient data","Please fill all fields!")

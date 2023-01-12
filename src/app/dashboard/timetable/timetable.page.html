@@ -39,7 +39,7 @@
 
             <ion-item class="dropdown">
               <ion-label class="options">Select a machine</ion-label>
-              <ion-select  (ionChange)="selectedMachineId = $event.target.value">
+              <ion-select  (ionChange)="selectMachine($event.target.value)">
                 <ng-container class="options" *ngFor="let machine of machines">
                   <ion-select-option  [value]="machine.machine_id">{{machine.machine_id}} - {{machine.machine_name}} </ion-select-option>
                 </ng-container>
@@ -48,17 +48,17 @@
   
             </ion-item>
 
-          <ion-item [disabled] ="editEnabled" class="dropdown">
-          <ion-label floating class="options">User: </ion-label>
-          <ion-select   (ionChange)="selecteduserid = $event.target.value">
+          <ion-item class="dropdown">
+          <ion-label [disabled] ="editEnabled" floating class="options">User: </ion-label>
+          <ion-select [disabled] ="editEnabled"  (ionChange)="selecteduserid = $event.target.value">
             <ion-select-option *ngIf=" !users" > No users found :( </ion-select-option>
             <ng-container class="options" *ngFor="let user of users">
               <ion-select-option  [value]="user.userid">{{user.userid}} - {{user.name}} </ion-select-option>
             </ng-container>
           </ion-select>
-          <ion-button class="fetchData" fill="solid" color="primary alignY" (click)="getUserPeriodMapping()"> VIEW
+          <ion-button [disabled] ="editEnabled" class="fetchData" fill="solid" color="primary alignY" (click)="getUserPeriodMapping()"> VIEW
           </ion-button>
-          <ion-button *ngIf="!editEnabled" class="fetchData alignY" fill="solid" color="secondary" (click)="editTimetable()"> EDIT
+          <ion-button  *ngIf="!editEnabled" class="fetchData alignY" fill="solid" color="secondary" (click)="editTimetable()"> EDIT
           </ion-button>
           <ion-button *ngIf="editEnabled" class="fetchData alignY" fill="solid" color="success" (click)="editTimetable()"> SAVE
           </ion-button>
@@ -106,9 +106,29 @@
           </ion-item>
         </ion-list>
 
-        <h2 class="">All Machine Periods:</h2>
+        
+        
 
-        <ion-grid>
+        <ion-grid *ngIf="selectedMachineId !== null">
+          <h2 class="">Periods from Machine: {{selectedMachineName}}:</h2>
+          <ion-row class="header attendanceGrid">
+            <ion-col> MACHINE </ion-col>
+            <ion-col> PERIOD </ion-col>
+            <ion-col> START TIME </ion-col>
+            <ion-col> END TIME </ion-col>
+          </ion-row>
+          <div class="datagrid">
+            <ion-row class="rowsdata attendanceGrid" *ngFor="let datum of periodsDataByMachine">
+              <ion-col> {{datum.machine_name}} </ion-col>
+              <ion-col> {{datum.PERIOD}} </ion-col>
+              <ion-col> {{datum.PERIODSTART}} </ion-col>
+              <ion-col> {{datum.PERIODEND}} </ion-col>
+              <!-- <ion-col *ngIf="datum.status === 'Late'" class="late"> {{datum.status}} </ion-col> -->
+            </ion-row>
+          </div>
+        </ion-grid>
+
+        <!-- <ion-grid>
           <ion-row class="header attendanceGrid">
             <ion-col> MACHINE </ion-col>
             <ion-col> PERIOD </ion-col>
@@ -121,10 +141,9 @@
               <ion-col> {{datum.PERIOD}} </ion-col>
               <ion-col> {{datum.PERIODSTART}} </ion-col>
               <ion-col> {{datum.PERIODEND}} </ion-col>
-              <!-- <ion-col *ngIf="datum.status === 'Late'" class="late"> {{datum.status}} </ion-col> -->
             </ion-row>
           </div>
-        </ion-grid>
+        </ion-grid> -->
 
 
 

@@ -16,6 +16,7 @@ export class TimetablePage implements OnInit {
   }
 
   periodsData: any
+  periodsDataByMachine: any
   users: []
   periodsmapping: any
   machines: any
@@ -23,10 +24,17 @@ export class TimetablePage implements OnInit {
   editEnabled = false
   formData: any = {}
   selectedMachineId: any = null
+  selectedMachineName: any = null
 
   selectedperiods = []
 
   setPeriodsMapping = []
+
+  selectMachine(machineId: any){
+    this.selectedMachineId = machineId
+    this.selectedMachineName = this.machines.find( item => item.machine_id == machineId ).machine_name
+    this.getAllPeriodsByMachineId()
+  }
 
 async getAllPeriods(){
   this.periodsData = await this.dataService.fetchAllPeriods()
@@ -36,6 +44,24 @@ async getAllPeriods(){
   }
 
 }
+
+async getAllPeriodsByMachineId() {
+  if(this.selectedMachineId == null)
+    alert("No machine selected")
+
+  
+  else {
+    this.formData = {
+      machineId : this.selectedMachineId
+    }
+
+    await this.dataService.postRequest(this.formData,"periodsbymachineid").then((data:any)=>{
+      this.periodsDataByMachine = data
+    })
+  }
+  
+}
+
 async getAllUsersByMachine(){
   if (this.selectedMachineId == null) {
     alert("Please select a machine first!")

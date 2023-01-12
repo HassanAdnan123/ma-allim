@@ -11,6 +11,7 @@ export class MachinesPage implements OnInit {
   machines: any
   addedMachine = null
   addedMachineResponse
+  formData: any = {}
 
   constructor(private dataService: DataService) { }
 
@@ -29,6 +30,16 @@ export class MachinesPage implements OnInit {
     this.addedMachineResponse = await this.dataService.addNewMachine(this.addedMachine)
     alert(this.addedMachineResponse.response)
     await this.fetchMachines()
+  }
+
+  async deleteMachine(machineId){
+    this.formData = {
+      machineId
+    }
+    await this.dataService.postRequest(this.formData,'deletemachine').then((data: any)=>{
+      alert("Machine deleted successfully!")
+      this.fetchMachines()
+    })
   }
 
 }

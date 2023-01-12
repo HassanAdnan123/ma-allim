@@ -44,6 +44,10 @@
             </ion-row>
             <ion-row class="rowsdata attendanceGrid" *ngFor="let machine of machines">
               <ion-col> {{machine.machine_name}} </ion-col>
+              <ion-col>
+                <ion-button fill="solid" color="danger" (click)="deleteMachine(machine.machine_id)"> DELETE
+                </ion-button>
+              </ion-col>
             </ion-row>
             <ion-row>
               <br>

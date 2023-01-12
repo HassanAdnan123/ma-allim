@@ -21,6 +21,8 @@ export class TimetablePage implements OnInit {
   machines: any
   selecteduserid: any
   editEnabled = false
+  formData: any = {}
+  selectedMachineId: any = null
 
   selectedperiods = []
 
@@ -31,6 +33,21 @@ async getAllPeriods(){
   if(this.periodsData==null){
     this.periodsData = [{PERIODSTART: "Couldn't fetch periods. ",
   PERIOD:"", PERIODEND: ""}]
+  }
+
+}
+async getAllUsersByMachine(){
+  if (this.selectedMachineId == null) {
+    alert("Please select a machine first!")
+  }
+  else {
+    this.formData = {...this.formData,
+      machineId : this.selectedMachineId
+    }
+
+    await this.dataService.postRequest(this.formData,'usersbymachine').then((data: any)=>{
+      this.users = data
+    })
   }
 
 }

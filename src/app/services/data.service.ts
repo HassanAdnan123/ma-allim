@@ -87,7 +87,7 @@ export class DataService {
 
   async fetchAllPeriodsByMachine(machineId: any) {
 
-    let postRequest = {"machine_id" : machineId}
+    let postRequest = {"machineId" : machineId}
     console.log(postRequest)
 
     await this.httpClient.post(`${this.environment.backendApi}/periodsbymachineid`,postRequest, this.httpOptions).toPromise().then(data => {
@@ -100,10 +100,14 @@ export class DataService {
     
   }
 
-  async fetchUserPeriodMapping(userid: number) {
+  async fetchUserPeriodMapping(userid: number, machineId: number) {
 
 
-    let postRequest = {"userid": userid}
+    let postRequest = {
+      "userid": userid,
+      "machineId": machineId
+
+  }
 
     await this.httpClient.post(`${this.environment.backendApi}/periodsmapping`,postRequest, this.httpOptions).toPromise().then(data => {
       this.periodsmapping = data
@@ -126,9 +130,9 @@ export class DataService {
     
   }
 
-  async insertMapping(userid: number, periodid: number) {
+  async insertMapping(userid: number, periodid: number, machineId) {
     
-    let postRequest = {"userid": userid, "periodid": periodid}
+    let postRequest = {userid,periodid,machineId}
 
     await this.httpClient.post(`${this.environment.backendApi}/insertmapping`,postRequest, this.httpOptions).toPromise().then(data => {
     }, error => {
@@ -137,11 +141,11 @@ export class DataService {
     
   }
 
-  async populatePeriodicData() {
+  async populatePeriodicData(machineId: number) {
     
-    //let postRequest = {"userid": userid, "periodid": periodid}
+    let postRequest = {machineId}
 
-    await this.httpClient.post(`${this.environment.backendApi}/populateperiodicdata`, this.httpOptions).toPromise().then(data => {
+    await this.httpClient.post(`${this.environment.backendApi}/populateperiodicdata`,postRequest, this.httpOptions).toPromise().then(data => {
     }, error => {
       console.log("Error populating attendance.", error)
     })

@@ -44,23 +44,25 @@
                   <ion-select-option  [value]="machine.machine_id">{{machine.machine_id}} - {{machine.machine_name}} </ion-select-option>
                 </ng-container>
               </ion-select>
-              <ion-button fill="solid" color="primary" (click)="getAllUsersByMachine()">GET USERS</ion-button>
+              <!-- <ion-button fill="solid" color="primary" (click)="getAllUsersByMachine()">GET USERS</ion-button> -->
   
             </ion-item>
 
           <ion-item class="dropdown">
           <ion-label [disabled] ="editEnabled" floating class="options">User: </ion-label>
-          <ion-select [disabled] ="editEnabled"  (ionChange)="selecteduserid = $event.target.value">
+          <ion-select [(ngModel)]="selecteduserid" [disabled] ="editEnabled"  (ionChange)="selecteduserid = $event.target.value">
             <ion-select-option *ngIf=" !users" > No users found :( </ion-select-option>
             <ng-container class="options" *ngFor="let user of users">
               <ion-select-option  [value]="user.userid">{{user.userid}} - {{user.name}} </ion-select-option>
             </ng-container>
           </ion-select>
-          <ion-button [disabled] ="editEnabled" class="fetchData" fill="solid" color="primary alignY" (click)="getUserPeriodMapping()"> VIEW
+          <ion-button *ngIf="!editEnabled" class="fetchData" fill="solid" color="primary alignY" (click)="getUserPeriodMapping()"> VIEW
           </ion-button>
           <ion-button  *ngIf="!editEnabled" class="fetchData alignY" fill="solid" color="secondary" (click)="editTimetable()"> EDIT
           </ion-button>
           <ion-button *ngIf="editEnabled" class="fetchData alignY" fill="solid" color="success" (click)="editTimetable()"> SAVE
+          </ion-button>
+          <ion-button *ngIf="editEnabled" class="fetchData alignY" fill="solid" color="danger" (click)="cancelEditTimetable()"> CANCEL
           </ion-button>
         </ion-item>
 

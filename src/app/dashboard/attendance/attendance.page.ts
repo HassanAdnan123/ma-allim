@@ -46,13 +46,14 @@ export class AttendancePage implements OnInit {
           }
   ngOnInit() {
     this.getAllData()
-    this.dataService.populatePeriodicData()
+    // this.dataService.populatePeriodicData()
   }
 
 
   async selectMachine(machineId: any){
     this.selectedMachineId = machineId
     this.getAllUsersByMachine()
+    this.dataService.populatePeriodicData(this.selectedMachineId)
   }
 
   async getAllUsersByMachine(){

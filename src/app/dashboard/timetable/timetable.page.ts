@@ -20,7 +20,7 @@ export class TimetablePage implements OnInit {
   users: []
   periodsmapping: any
   machines: any
-  selecteduserid: any
+  selecteduserid: any = null
   editEnabled = false
   formData: any = {}
   selectedMachineId: any = null
@@ -34,6 +34,8 @@ export class TimetablePage implements OnInit {
     this.selectedMachineId = machineId
     this.selectedMachineName = this.machines.find( item => item.machine_id == machineId ).machine_name
     this.getAllPeriodsByMachineId()
+    this.getAllUsersByMachine()
+    this.selecteduserid = null
   }
 
 async getAllPeriods(){
@@ -80,7 +82,7 @@ async getAllUsersByMachine(){
 
 async getUserPeriodMapping(){
   if(this.selecteduserid!=null){
-    this.periodsmapping = await this.dataService.fetchUserPeriodMapping(this.selecteduserid)
+    this.periodsmapping = await this.dataService.fetchUserPeriodMapping(this.selecteduserid, this.selectedMachineId)
     if(this.periodsmapping.length == 0){
       this.periodsmapping = [{NAME: "This user has no timetable.",
       PERIOD:""}]
@@ -112,8 +114,8 @@ async editTimetable(){
       await this.getUserPeriodMapping()
       
 
-      for(let i = 0; i<this.periodsData.length; i++){
-        this.setPeriodsMapping.push({val: this.periodsData[i].PERIOD, PERIODID : this.periodsData[i].PERIODID, isChecked: false})
+      for(let i = 0; i<this.periodsDataByMachine.length; i++){
+        this.setPeriodsMapping.push({val: this.periodsDataByMachine[i].PERIOD, PERIODID : this.periodsDataByMachine[i].PERIODID, isChecked: false})
 
         for(let j = 0; j < this.periodsmapping.length; j++){
           if (this.setPeriodsMapping[i].PERIODID == this.periodsmapping[j].PERIODID)
@@ -137,13 +139,17 @@ async editTimetable(){
     for(let i=0; i<this.setPeriodsMapping.length; i++){
       if (this.setPeriodsMapping[i].isChecked){
         console.log("calling insertion for periodid: ", this.setPeriodsMapping[i].PERIODID)
-        await this.dataService.insertMapping(this.selecteduserid, this.setPeriodsMapping[i].PERIODID)
+        await this.dataService.insertMapping(this.selecteduserid, this.setPeriodsMapping[i].PERIODID, this.selectedMachineId)
       }
     }
   }
+  }
 }
 
+cancelEditTimetable(){
+  this.editEnabled = !this.editEnabled
 }
+
 async fetchMachines(){
   this.machines = await this.dataService.getAllMachines()
   this.machines.forEach(machine => {
